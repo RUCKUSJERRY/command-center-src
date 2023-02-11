@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState }  from 'react';
 
-function Command_line() {
+const CommandLine = () => {
+
+    const [commandData] = useState({
+        command: "",
+      });
+
+    const keyEvent = (event) => {
+      console.log('event.key = ' + event.key + ' / event.keyCode = ' + event.keyCode);
+      if (event.key === 'Enter') {
+        console.log('Enter key pressed');
+      }
+      //commandData = event.key;
+    };
+
     return (
-        <input type="text" placeholder="커멘드 입력"></input>
+        <input
+        type="text"
+        name="command"
+        placeholder="typing your command"
+        value={commandData.command}
+        onKeyDown={keyEvent}
+        />
     );
 }
 
-export default Command_line;
+export default CommandLine;
