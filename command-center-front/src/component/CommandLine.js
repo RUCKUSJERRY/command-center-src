@@ -2,53 +2,50 @@ import React  from 'react';
 
 const CommandLine = () => {
 
-  //window.addEventListener("keydown", keysPressed, false);
-  //window.addEventListener("keyup", keysReleased, false);
-  
-  var keys = [];
-  
-    function keysPressed(e) {
-      // store an entry for every key pressed
-      console.log('key = ' + e.keyCode);
+    var keys = [];
 
-      const commandview = document.getElementById('commandview');
+    function keysEvent(e) {    
+      const commandview = document.getElementById('commandview'); // 커멘드를 보여주는 곳
+      const commandline = document.getElementById('commandline'); // 커멘드를 입력하는 곳
+      console.log(commandline.value);
 
-      commandview.innerHTML = e.keyCode;
+      var expression = RegExp(/^[ㄱ-ㅎ|가-힣]+$/);
+      if (expression.test(commandline.value)){
+        alert("please enter English");  
+      }else{
+        // backspace인 경우에는 commandview의 마지막 값을 지워준다.
+        if (e.keyCode === 8) {
+          keys.pop();
+        } 
+        // 그게 아닌 경우에는 중복된 값이 없는 경우에만 commandview에 값을 더해준다.
+        else {
+          if (!keys.includes(e.keyCode)) {
+            keys.push(e.keyCode);
+          }
+        };
 
-      // Ctrl + Shift + 5
-      if (keys[17] && keys[16] && keys[53]) {
-        // do something
+        // 현재 입력한 커멘드 값을 화면에 보여준다.
+        commandview.innerHTML = keys;
       }
-      
-      // Ctrl + f
-      if (keys[17] && keys[70]) {
-        // do something
-      
-        // prevent default browser behavior
-        e.preventDefault();	
-      }
+
+      // commandline의 value를 초기화 해준다.
+      commandline.value = null;
+
     }
-
-    const keyEvent = (event) => {
-      console.log('event.key = ' + event.key + ' / event.keyCode = ' + event.keyCode);
-      if (event.key === 'Enter') {
-        console.log('Enter key pressed');
-      }
-      //commandData = event.key;
-    };
 
     return (
         <div>
           <div id="commandview">
           </div>
           <input
-          type="text"
-          name="command"
-          placeholder="typing your command"
-          onKeyDown={keysPressed}
+            type="text"
+            name="command"
+            id="commandline"
+            placeholder="typing your command"
+            onKeyUp={keysEvent}
           />
         </div>
+        
     );
 }
-
 export default CommandLine;
