@@ -1,16 +1,20 @@
-import React, { useState }  from 'react';
+import React  from 'react';
 
 const CommandLine = () => {
 
-  window.addEventListener("keydown", keysPressed, false);
-  window.addEventListener("keyup", keysReleased, false);
+  //window.addEventListener("keydown", keysPressed, false);
+  //window.addEventListener("keyup", keysReleased, false);
   
   var keys = [];
   
     function keysPressed(e) {
       // store an entry for every key pressed
-      keys[e.keyCode] = true;
-      console.log('keys = ' + e.keyCode);
+      console.log('key = ' + e.keyCode);
+
+      const commandview = document.getElementById('commandview');
+
+      commandview.innerHTML = e.keyCode;
+
       // Ctrl + Shift + 5
       if (keys[17] && keys[16] && keys[53]) {
         // do something
@@ -25,10 +29,6 @@ const CommandLine = () => {
       }
     }
 
-    const [commandData] = useState({
-        command: "",
-      });
-
     const keyEvent = (event) => {
       console.log('event.key = ' + event.key + ' / event.keyCode = ' + event.keyCode);
       if (event.key === 'Enter') {
@@ -36,20 +36,18 @@ const CommandLine = () => {
       }
       //commandData = event.key;
     };
-    
-    function keysReleased(e) {
-      // mark keys that were released
-      keys[e.keyCode] = false;
-    }
 
     return (
-        <input
-        type="text"
-        name="command"
-        placeholder="typing your command"
-        value={commandData.command}
-        onKeyDown={keyEvent}
-        />
+        <div>
+          <div id="commandview">
+          </div>
+          <input
+          type="text"
+          name="command"
+          placeholder="typing your command"
+          onKeyDown={keysPressed}
+          />
+        </div>
     );
 }
 
