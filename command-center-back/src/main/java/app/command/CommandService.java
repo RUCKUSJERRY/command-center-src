@@ -11,9 +11,9 @@ public class CommandService {
 	@Autowired
 	CommandRepository commandRepository;
 	
-	public List getKeyCode() {
+	public List<KeyCode> getKeyCode() {
 		
-		List keyList = commandRepository.findAll();
+		List<KeyCode> keyList = commandRepository.findAll();
 		
 		return keyList;
 	}

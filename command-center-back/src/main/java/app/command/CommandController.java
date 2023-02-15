@@ -16,7 +16,7 @@ public class CommandController {
 	
 	@RequestMapping(value = "/command/getKeyCode")
 	@ResponseBody
-	public List getKeyCode() {
+	public List<KeyCode> getKeyCode() {
 		return commandService.getKeyCode();
 	}
 }

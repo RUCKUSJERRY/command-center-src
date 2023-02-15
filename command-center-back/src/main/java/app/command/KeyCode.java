@@ -14,10 +14,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "CC_KEYCODE")
+@Entity(name = "CC_KEYCODE")
 public class KeyCode {
 	
 	@Id
