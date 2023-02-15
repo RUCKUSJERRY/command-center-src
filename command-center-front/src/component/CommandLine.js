@@ -1,6 +1,19 @@
-import React  from 'react';
+import React, { useState, useEffect }  from 'react';
 
 const CommandLine = () => {
+
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch('/command/getKeyCode')
+        .then(response => {
+          console.log(response);
+        })
+        .then(message => {
+          console.log(message);
+          setMessage(message);
+        });
+  },[])
 
     // keydown시 focusControl을 한다.
     document.addEventListener("keydown", focusControl);
@@ -14,7 +27,7 @@ const CommandLine = () => {
       // 한글은 입력되지 않도록 한다. command를 사용할때 필요없는 정보임
       var expression = RegExp(/^[ㄱ-ㅎ|가-힣]+$/);
       if (expression.test(commandline.value)){
-        alert("please enter English");  
+        alert("you cannot enter korean. please change English Mode");
       }else{
         // backspace인 경우에는 commandview의 마지막 값을 지워준다.
         if (e.keyCode === 8) {
@@ -68,6 +81,7 @@ const CommandLine = () => {
             placeholder="typing your command"
             onKeyUp={keysEvent}
           />
+          <h1>{message}</h1>
         </div>
         
     );
